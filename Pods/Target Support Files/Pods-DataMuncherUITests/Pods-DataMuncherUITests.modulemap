@@ -1,0 +1,6 @@
+framework module Pods_DataMuncherUITests {
+  umbrella header "Pods-DataMuncherUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
