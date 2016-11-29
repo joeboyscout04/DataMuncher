@@ -109,24 +109,36 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="D71-ab-mQE">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FoodTableViewCell" id="D71-ab-mQE" customClass="FoodTableViewCell" customModule="DataMuncher" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D71-ab-mQE" id="t3m-Eo-Yrc">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPh-q8-mBN">
-                                                    <rect key="frame" x="22" y="8" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eggs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPh-q8-mBN">
+                                                    <rect key="frame" x="16" y="4" width="343" height="35.5"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iPh-q8-mBN" firstAttribute="leading" secondItem="t3m-Eo-Yrc" secondAttribute="leading" constant="16" id="OfZ-lC-tbP"/>
+                                                <constraint firstItem="iPh-q8-mBN" firstAttribute="top" secondItem="t3m-Eo-Yrc" secondAttribute="top" constant="4" id="kss-xJ-xnn"/>
+                                                <constraint firstAttribute="trailing" secondItem="iPh-q8-mBN" secondAttribute="trailing" constant="16" id="uNR-T4-tGU"/>
+                                                <constraint firstAttribute="bottom" secondItem="iPh-q8-mBN" secondAttribute="bottom" constant="4" id="z4h-sD-Nqc"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="iPh-q8-mBN" id="kU6-Q4-HVk"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="rf5-Vj-fme" id="zJt-u6-oh3"/>
+                                    <outlet property="delegate" destination="rf5-Vj-fme" id="V0e-al-ey6"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -138,6 +150,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Second" image="second" id="tNJ-xK-qrv"/>
+                    <connections>
+                        <outlet property="tableView" destination="KSJ-Be-FCq" id="Mgt-1f-Tan"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HM1-1z-zLr" sceneMemberID="firstResponder"/>
             </objects>

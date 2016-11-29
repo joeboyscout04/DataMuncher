@@ -89,6 +89,10 @@ class ExerciseViewController: UIViewController, UITableViewDataSource,UITableVie
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ExerciseItem")
         
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
             exercises = results as! [ExerciseItem]

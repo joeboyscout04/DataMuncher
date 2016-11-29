@@ -48,9 +48,13 @@ class CategoriesViewController: UIViewController, UITableViewDataSource,UITableV
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //check to see if the data's loaded already 
-        
-        fetchCategoriesData(note: Notification(name: NSNotification.Name(rawValue: CoreDataManager.categoriesDataLoadedNotificationKey)))
+        //check to see if the data's loaded already, we could either start the fetch from a notification or from appearance.
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        if let stack = appDelegate.dataStack{
+            if(stack.categoryDataLoaded){
+                fetchCategoriesDataAndShowError(displayError: true)
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -88,9 +92,11 @@ class CategoriesViewController: UIViewController, UITableViewDataSource,UITableV
     
     //MARK: - Core Data Retrieval
     
-    func fetchCategoriesData(note: Notification) {
-        
+    func fetchCategoriesDataAndShowError(displayError:Bool){
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FoodCategoryItem")
+        
+        let sortDescriptor = NSSortDescriptor(key: "categoryName", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
@@ -98,10 +104,18 @@ class CategoriesViewController: UIViewController, UITableViewDataSource,UITableV
         }
         catch let error as NSError {
             
-            showError(error: error)
+            if(displayError){
+                showError(error: error)
+            }
         }
         
         self.tableView.reloadData()
+        
+    }
+    
+    func fetchCategoriesData(note: Notification) {
+        
+       fetchCategoriesDataAndShowError(displayError: true)
         
     }
 }

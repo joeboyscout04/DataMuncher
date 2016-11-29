@@ -27,6 +27,7 @@
 		AF6956B41DEDBC7500DCA06F /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956B31DEDBC7500DCA06F /* CategoriesViewController.swift */; };
 		AF6956B61DEDBDC000DCA06F /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956B51DEDBDC000DCA06F /* CategoryTableViewCell.swift */; };
 		AF6956B81DEDBEE200DCA06F /* ShowAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956B71DEDBEE200DCA06F /* ShowAlertView.swift */; };
+		AF6956BB1DEDC9AA00DCA06F /* FoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956BA1DEDC9AA00DCA06F /* FoodTableViewCell.swift */; };
 		AF6C60941DEC628C00DF57DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C60931DEC628C00DF57DF /* AppDelegate.swift */; };
 		AF6C60961DEC628C00DF57DF /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C60951DEC628C00DF57DF /* FoodViewController.swift */; };
 		AF6C60991DEC628C00DF57DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF6C60971DEC628C00DF57DF /* Main.storyboard */; };
@@ -77,6 +78,7 @@
 		AF6956B31DEDBC7500DCA06F /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		AF6956B51DEDBDC000DCA06F /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		AF6956B71DEDBEE200DCA06F /* ShowAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowAlertView.swift; sourceTree = "<group>"; };
+		AF6956BA1DEDC9AA00DCA06F /* FoodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodTableViewCell.swift; sourceTree = "<group>"; };
 		AF6C60901DEC628C00DF57DF /* DataMuncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataMuncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6C60931DEC628C00DF57DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF6C60951DEC628C00DF57DF /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
@@ -185,15 +187,23 @@
 		AF69565E1DECF43300DCA06F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AF6956A91DED18B300DCA06F /* MainViewController.swift */,
 				AF6C60951DEC628C00DF57DF /* FoodViewController.swift */,
 				AF6956A51DED05DE00DCA06F /* ExerciseViewController.swift */,
-				AF6956A71DED0E2900DCA06F /* ExerciseTableViewCell.swift */,
-				AF6956B51DEDBDC000DCA06F /* CategoryTableViewCell.swift */,
-				AF6956B71DEDBEE200DCA06F /* ShowAlertView.swift */,
 				AF6956B31DEDBC7500DCA06F /* CategoriesViewController.swift */,
-				AF6956A91DED18B300DCA06F /* MainViewController.swift */,
+				AF6956A71DED0E2900DCA06F /* ExerciseTableViewCell.swift */,
+				AF6956BA1DEDC9AA00DCA06F /* FoodTableViewCell.swift */,
+				AF6956B51DEDBDC000DCA06F /* CategoryTableViewCell.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		AF6956B91DEDC99800DCA06F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AF6956B71DEDBEE200DCA06F /* ShowAlertView.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		AF6C60871DEC628C00DF57DF = {
@@ -221,6 +231,7 @@
 		AF6C60921DEC628C00DF57DF /* DataMuncher */ = {
 			isa = PBXGroup;
 			children = (
+				AF6956B91DEDC99800DCA06F /* Extensions */,
 				AF69565E1DECF43300DCA06F /* Views */,
 				AF69565D1DECF42800DCA06F /* Data */,
 				AF6C60931DEC628C00DF57DF /* AppDelegate.swift */,
@@ -547,6 +558,7 @@
 				AF6956A81DED0E2900DCA06F /* ExerciseTableViewCell.swift in Sources */,
 				AF6956B61DEDBDC000DCA06F /* CategoryTableViewCell.swift in Sources */,
 				AF6956A61DED05DE00DCA06F /* ExerciseViewController.swift in Sources */,
+				AF6956BB1DEDC9AA00DCA06F /* FoodTableViewCell.swift in Sources */,
 				AF6C60961DEC628C00DF57DF /* FoodViewController.swift in Sources */,
 				AF6956521DECE4F900DCA06F /* CoreDataManager.swift in Sources */,
 				AF6956AC1DEDA3EB00DCA06F /* JsonParsedObject.swift in Sources */,

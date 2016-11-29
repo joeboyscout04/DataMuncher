@@ -16,14 +16,22 @@ class CoreDataManager: NSObject {
     var storeCoordinator:NSPersistentStoreCoordinator
     let errorDomain = "self.edu.CoreDataManager"
     let errorTitle = "Error"
-    let exerciseDataLoadError = 100
-    let foodDataError = 200
+    let exerciseDataLoadErrorCode = 100
+    let foodDataLoadErrorCode = 200
+    let categoryDataLoadErrorCode = 300
     
     static let coreDataInitializedNotificaitonKey = "CoreDataInitialized"
     static let exerciseDataLoadedNotificationKey = "ExerciseDataLoaded"
     static let foodDataLoadedNotificationKey = "FoodDataLoaded"
     static let categoriesDataLoadedNotificationKey = "CategoriesDataLoaded"
     
+    var categoryDataError:NSError? = nil
+    var foodDataError:NSError? = nil
+    var exerciseDataError:NSError? = nil
+    
+    var categoryDataLoaded = false
+    var foodDataLoaded = false
+    var exerciseDataLoaded = false
 
     init(callback:@escaping (NSError?) -> ()) {
         
@@ -67,7 +75,7 @@ class CoreDataManager: NSObject {
     }
     
     
-    func batchLoadData(resource:String,entity:String) -> NSError? {
+    func batchLoadData(resource:String,entity:String,errorCode:Int) -> NSError? {
         var error:NSError? = nil
         if let path = Bundle.main.path(forResource: resource, ofType: "json") {
             if let data = NSData.init(contentsOfFile: path) as? Data {
@@ -117,15 +125,15 @@ class CoreDataManager: NSObject {
                     })
                 }
                 catch {
-                    return NSError(domain: self.errorDomain, code: exerciseDataLoadError, userInfo: [NSLocalizedDescriptionKey: "The \(entity) data failed to load into CoreData"])
+                    return NSError(domain: self.errorDomain, code: errorCode, userInfo: [NSLocalizedDescriptionKey: "The \(entity) data failed to load into CoreData"])
                 }
             }
             else {
-                error = NSError(domain: self.errorDomain, code: exerciseDataLoadError, userInfo: [NSLocalizedDescriptionKey: "The resource \(resource) couldn't be turned into data."])
+                error = NSError(domain: self.errorDomain, code: errorCode, userInfo: [NSLocalizedDescriptionKey: "The resource \(resource) couldn't be turned into data."])
             }
         }
         else{
-            error = NSError(domain: self.errorDomain, code: exerciseDataLoadError, userInfo: [NSLocalizedDescriptionKey: "The \(resource) path wasn't valid"])
+            error = NSError(domain: self.errorDomain, code: errorCode, userInfo: [NSLocalizedDescriptionKey: "The \(resource) path wasn't valid"])
         }
         return error
     }
@@ -133,19 +141,29 @@ class CoreDataManager: NSObject {
     
     func loadExerciseData() -> NSError? {
         
-        return batchLoadData(resource: "exercisesStatic", entity: "ExerciseItem")
-
+        exerciseDataError = batchLoadData(resource: "exercisesStatic", entity: "ExerciseItem", errorCode: exerciseDataLoadErrorCode)
+        if(exerciseDataError == nil){
+            exerciseDataLoaded = true
+        }
+        return exerciseDataError
     }
     
     func loadFoodData() -> NSError? {
         
-        return batchLoadData(resource: "foodStatic", entity: "FoodItem")
-        
+        foodDataError = batchLoadData(resource: "foodStatic", entity: "FoodItem", errorCode: foodDataLoadErrorCode)
+        if(foodDataError == nil){
+            foodDataLoaded = true
+        }
+        return foodDataError
     }
     
     func loadCategoryData() -> NSError? {
         
-        return batchLoadData(resource: "categoriesStatic", entity: "FoodCategoryItem")
+        categoryDataError = batchLoadData(resource: "categoriesStatic", entity: "FoodCategoryItem", errorCode: categoryDataLoadErrorCode)
+        if(categoryDataError == nil){
+            categoryDataLoaded = true
+        }
+        return categoryDataError
         
     }
     

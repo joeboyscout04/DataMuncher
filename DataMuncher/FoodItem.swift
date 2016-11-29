@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class FoodItem: NSManagedObject,JsonParsedObject {
+class FoodItem: UniqueItem {
     
     /*
  {
@@ -50,8 +50,6 @@ class FoodItem: NSManagedObject,JsonParsedObject {
  */
     
     //identifiers
-    @NSManaged var oid: String
-    @NSManaged var lastUpdated: Date //date in unix time
     @NSManaged var categoryId: Int16
     @NSManaged var oCategoryId: Int16
     @NSManaged var servingCategory: Int16
@@ -94,8 +92,9 @@ class FoodItem: NSManagedObject,JsonParsedObject {
 
     
     
-    func updateFromJson(jsonDict:[String:AnyObject]) {
+    override func updateFromJson(jsonDict:[String:AnyObject]) {
         
+        super.updateFromJson(jsonDict: jsonDict)
         //This JSON parsing is really tedious...
         //TODO: implement JSON parsing library Groot
         //check each key so that we allow partial data (use CoreData defaults to fill in partials)

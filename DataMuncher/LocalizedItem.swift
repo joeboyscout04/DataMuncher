@@ -68,4 +68,21 @@ class LocalizedItem: UniqueItem {
         }
     }
     
+    
+    func nameFromLocalization() -> String? {
+        
+        var localizedName:String? = nil
+        
+        let deviceLanguages = NSLocale.preferredLanguages
+        let firstLanguage = deviceLanguages.first!
+        NSLog("The device language is \(firstLanguage)")
+        
+        let keyString = "name_\(firstLanguage)"
+        
+        let localizedNameBox = self.value(forKey: keyString)
+        localizedName = localizedNameBox as? String
+
+        return localizedName
+    }
+    
 }
