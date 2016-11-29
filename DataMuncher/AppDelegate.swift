@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Show some basic UI so the user's happy...
         
-        
         let deviceLanguages = NSLocale.preferredLanguages
         let firstLanguage = deviceLanguages.first!
         NSLog("The device language is \(firstLanguage)")

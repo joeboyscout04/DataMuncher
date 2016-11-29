@@ -42,7 +42,7 @@ class FoodCategoryItem: LocalizedItem {
     @NSManaged var categoryName : String //name of the category
     
 
-    override func updateFromJson(jsonDict:[String:AnyObject]) {
+    override func updateFromJson(jsonDict:[String:Any]) {
         
         super.updateFromJson(jsonDict: jsonDict)
         

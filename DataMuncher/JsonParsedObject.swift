@@ -11,5 +11,5 @@ import CoreData
 
 protocol JsonParsedObject {
     
-    func updateFromJson(jsonDict:[String:AnyObject])
+    func updateFromJson(jsonDict:[String:Any])
 }

@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import DBAlertController
+import Foundation
 
 class CoreDataManager: NSObject {
     
@@ -32,6 +33,10 @@ class CoreDataManager: NSObject {
     var categoryDataLoaded = false
     var foodDataLoaded = false
     var exerciseDataLoaded = false
+    
+    private let foodQueue = DispatchQueue(label: "foodQueue")
+    private let exerciseQueue = DispatchQueue(label: "exerciseQueue")
+    private let categoryQueue = DispatchQueue(label: "categoryQueue")
 
     init(callback:@escaping (NSError?) -> ()) {
         
@@ -75,94 +80,111 @@ class CoreDataManager: NSObject {
     }
     
     
-    func batchLoadData(resource:String,entity:String,errorCode:Int) -> NSError? {
-        var error:NSError? = nil
-        if let path = Bundle.main.path(forResource: resource, ofType: "json") {
-            if let data = NSData.init(contentsOfFile: path) as? Data {
+    func batchLoadData(resource:String,entity:String,errorCode:Int, notificationKey:String,queue:DispatchQueue) {
+        
+        queue.async {
+            
+            let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+            context.persistentStoreCoordinator = self.storeCoordinator
+            context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            
+            if let path = Bundle.main.path(forResource: resource, ofType: "json") {
+                var dataBox:NSData? = nil
+                
+                NSLog("Get data from file \(resource)")
                 
                 do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [[String:AnyObject]]
-                    
-                    //turn it into data that we want to save
-                    //batch it up
-                    
-                    managedObjectContext.perform({
+                    dataBox = try NSData(contentsOfFile: path, options:[NSData.ReadingOptions.alwaysMapped,NSData.ReadingOptions.uncached])
+                }
+                catch{
+                    NSLog("Data with contents of file failed")
+                }
+                
+                if let data = dataBox as Data? {
+                    do {
                         
-                        var index = 0
-                        let batchCount = 1000
-                        while(index < json.count - 1){
+                        let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)  as! [[String:Any]]
+                        
+                        //turn it into data that we want to save
+                        //batch it up
+                        NSLog("Begin batch insert of \(resource) to \(entity)")
+                        
+                        context.perform({
                             
-                            
-                            let addToIndex = json.count - index < batchCount ? json.count - index - 1 : batchCount
-                            let newIndex = index + addToIndex
-                            let arraySlice = json[index...newIndex]
-                            for exercise in arraySlice {
+                            var index = 0
+                            let batchCount = 100
+                            while(index < json.count - 1){
                                 
-                                let newExerciseObject = NSEntityDescription.insertNewObject(forEntityName: entity, into: self.managedObjectContext) as! JsonParsedObject
-                                newExerciseObject.updateFromJson(jsonDict: exercise)
+                                autoreleasepool {
+                                    
+                                    let addToIndex = json.count - index < batchCount ? json.count - index - 1 : batchCount
+                                    let newIndex = index + addToIndex
+                                    let arraySlice = json[index...newIndex]
+                                    for exercise in arraySlice {
+                                        
+                                        let newExerciseObject = NSEntityDescription.insertNewObject(forEntityName: entity, into: context) as! JsonParsedObject
+                                        newExerciseObject.updateFromJson(jsonDict: exercise)
+                                    }
+                                    index = newIndex
+                                }
+                                
+                                
+                                do{
+                                    try context.save()
+                                }
+                                catch {
+                                    NSLog("Failure to save \(entity) data")
+                                    let alert = DBAlertController(title: self.errorTitle, message: "Failure to save \(entity) data", preferredStyle: UIAlertControllerStyle.alert)
+                                    let okAction = UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.cancel, handler: { (action) in
+                                        alert.dismiss(animated: true, completion: {})
+                                    })
+                                    alert.addAction(okAction)
+                                    alert.show()
+                                }
+                                
+                                context.reset()
                             }
-                            index = newIndex
                             
-                            do{
-                                try self.managedObjectContext.save()
-                            }
-                            catch {
-                                NSLog("Failure to save \(entity) data")
-                                let alert = DBAlertController(title: self.errorTitle, message: "Failure to save \(entity) data", preferredStyle: UIAlertControllerStyle.alert)
-                                let okAction = UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.cancel, handler: { (action) in
-                                    alert.dismiss(animated: true, completion: {})
-                                })
-                                alert.addAction(okAction)
-                                alert.show()
-                            }
-                        }
-                        
-                        NSLog("The data from \(resource) was loaded into CoreData Entity \(entity)")
-                        
-                        let notification = NSNotification(name: NSNotification.Name(rawValue: CoreDataManager.exerciseDataLoadedNotificationKey), object: nil) as Notification
-                        NotificationQueue.default.enqueue(notification, postingStyle: NotificationQueue.PostingStyle.asap)
-                        
-                    })
+                            NSLog("The data from \(resource) was loaded into CoreData Entity \(entity)")
+                            
+                            let notification = NSNotification(name: NSNotification.Name(rawValue: notificationKey), object: nil) as Notification
+                            NotificationQueue.default.enqueue(notification, postingStyle: NotificationQueue.PostingStyle.asap)
+                            
+                        })
+                    }
+                    catch {
+                        NSLog("The \(entity) data failed to load into CoreData")
+                    }
                 }
-                catch {
-                    return NSError(domain: self.errorDomain, code: errorCode, userInfo: [NSLocalizedDescriptionKey: "The \(entity) data failed to load into CoreData"])
+                else {
+                    NSLog("The resource \(resource) couldn't be turned into data.")
                 }
             }
-            else {
-                error = NSError(domain: self.errorDomain, code: errorCode, userInfo: [NSLocalizedDescriptionKey: "The resource \(resource) couldn't be turned into data."])
+            else{
+                NSLog("The \(resource) path wasn't valid")
             }
         }
-        else{
-            error = NSError(domain: self.errorDomain, code: errorCode, userInfo: [NSLocalizedDescriptionKey: "The \(resource) path wasn't valid"])
-        }
-        return error
     }
     
     
     func loadExerciseData() -> NSError? {
         
-        exerciseDataError = batchLoadData(resource: "exercisesStatic", entity: "ExerciseItem", errorCode: exerciseDataLoadErrorCode)
-        if(exerciseDataError == nil){
-            exerciseDataLoaded = true
-        }
+        batchLoadData(resource: "exercisesStatic", entity: "ExerciseItem", errorCode: exerciseDataLoadErrorCode,notificationKey: CoreDataManager.exerciseDataLoadedNotificationKey, queue: exerciseQueue)
+
         return exerciseDataError
     }
     
     func loadFoodData() -> NSError? {
         
-        foodDataError = batchLoadData(resource: "foodStatic", entity: "FoodItem", errorCode: foodDataLoadErrorCode)
-        if(foodDataError == nil){
-            foodDataLoaded = true
-        }
+        batchLoadData(resource: "foodStatic", entity: "FoodItem", errorCode: foodDataLoadErrorCode, notificationKey: CoreDataManager.foodDataLoadedNotificationKey, queue: foodQueue)
+
         return foodDataError
     }
     
     func loadCategoryData() -> NSError? {
         
-        categoryDataError = batchLoadData(resource: "categoriesStatic", entity: "FoodCategoryItem", errorCode: categoryDataLoadErrorCode)
-        if(categoryDataError == nil){
-            categoryDataLoaded = true
-        }
+        batchLoadData(resource: "categoriesStatic", entity: "FoodCategoryItem", errorCode: categoryDataLoadErrorCode, notificationKey: CoreDataManager.categoriesDataLoadedNotificationKey, queue: categoryQueue)
+
         return categoryDataError
         
     }

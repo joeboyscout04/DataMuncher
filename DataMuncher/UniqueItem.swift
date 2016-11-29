@@ -14,7 +14,7 @@ class UniqueItem : NSManagedObject,JsonParsedObject {
     @NSManaged var oid: String
     @NSManaged var lastUpdated: Date //date in unix time
     
-    func updateFromJson(jsonDict:[String:AnyObject]) {
+    func updateFromJson(jsonDict:[String:Any]) {
         
         if let newoid = jsonDict["oid"] as? Int{
             self.oid = "\(newoid)"

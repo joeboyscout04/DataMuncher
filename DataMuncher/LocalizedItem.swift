@@ -25,7 +25,7 @@ class LocalizedItem: UniqueItem {
     @NSManaged var name_it: String
     @NSManaged var name_fi : String
     
-    override func updateFromJson(jsonDict: [String : AnyObject]) {
+    override func updateFromJson(jsonDict: [String : Any]) {
         
         super.updateFromJson(jsonDict: jsonDict)
         

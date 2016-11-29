@@ -52,7 +52,7 @@ class ExerciseItem: LocalizedItem {
     //    @NSManaged var downloaded: Bool
     
     
-    override func updateFromJson(jsonDict:[String:AnyObject]) {
+    override func updateFromJson(jsonDict:[String:Any]) {
         
         super.updateFromJson(jsonDict: jsonDict)
         
