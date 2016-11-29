@@ -6,7 +6,7 @@ target 'DataMuncher' do
   use_frameworks!
 
   # Pods for DataMuncher
-  pod 'AFNetworking', '~> 3.1.0'
+  pod 'DBAlertController', :git => 'https://github.com/dbettermann/DBAlertController.git', :branch => 'swift3'
 
   target 'DataMuncherTests' do
     inherit! :search_paths

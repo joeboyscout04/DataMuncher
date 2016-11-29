@@ -8,12 +8,20 @@
 
 import UIKit
 import CoreData
+import DBAlertController
 
 class CoreDataManager: NSObject {
     
     var managedObjectContext: NSManagedObjectContext
+    let errorDomain = "self.edu.CoreDataManager"
+    let errorTitle = "Error"
+    let exerciseDataLoadError = 100
+    let foodDataError = 200
     
-    override init() {
+    let coreDataInitializedNotificaitonKey = "CoreDataInitialized"
+    
+
+    init(callback:@escaping (NSError?) -> ()) {
         
         //get the data model
         guard let modelURL = Bundle.main.url(forResource: "DataMuncher", withExtension:"momd"),
@@ -37,19 +45,79 @@ class CoreDataManager: NSObject {
             
             //store the data into DataMuncher.sqlite
             let storeURL = docURL?.appendingPathComponent("DataMuncher.sqlite")
-            
+
             do {
                 try storeCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
+                callback(nil)
+                
             } catch {
                 fatalError("Error migrating store: \(error)")
             }
+            
+            let notification = NSNotification(name: NSNotification.Name(rawValue: "CoreDataInitialized"), object: nil) as Notification
+            NotificationQueue.default.enqueue(notification, postingStyle: NotificationQueue.PostingStyle.asap)
+            
         }
     }
     
-    func loadDataInBackground() {
-        
+    
+    func loadExerciseData() -> NSError? {
+
+        var error:NSError? = nil
+        if let exercisePath = Bundle.main.path(forResource: "exercisesStatic", ofType: "json") {
+            if let exerciseData = NSData.init(contentsOfFile: exercisePath) as? Data {
+                
+                do {
+                    let exerciseJson = try JSONSerialization.jsonObject(with: exerciseData, options: JSONSerialization.ReadingOptions.allowFragments) as! [[String:AnyObject]]
+                    
+                    //turn it into data that we want to save 
+                    //batch it up
+                    
+                    managedObjectContext.perform({
+                        
+                        var index = 0
+                        let batchCount = 1000
+                        while(index < exerciseJson.count - 1){
+                            
+                            
+                            let addToIndex = exerciseJson.count - index < batchCount ? exerciseJson.count - index - 1 : batchCount
+                            let newIndex = index + addToIndex
+                            let arraySlice = exerciseJson[index...newIndex]
+                            for exercise in arraySlice {
+                             
+                                let newExerciseObject = NSEntityDescription.insertNewObject(forEntityName: "ExerciseItem", into: self.managedObjectContext) as! ExerciseItem
+                                newExerciseObject.updateFromJson(jsonDict: exercise)
+                            }
+                            index = newIndex
+                            
+                            do{
+                                try self.managedObjectContext.save()
+                            }
+                            catch {
+                                NSLog("Failure to save exercise data")
+                                DBAlertController(title: self.errorTitle, message: "Failure to save exercise data", preferredStyle: UIAlertControllerStyle.alert)
+                            }
+                        }
+                    })
+                }
+                catch {
+                    return NSError(domain: self.errorDomain, code: exerciseDataLoadError, userInfo: [NSLocalizedDescriptionKey: "The exercise data failed to load into CoreData"])
+                }
+            }
+            else {
+                error = NSError(domain: self.errorDomain, code: exerciseDataLoadError, userInfo: [NSLocalizedDescriptionKey: "The exercise path wasn't valid"])
+            }
+        }
+        else{
+            error = NSError(domain: self.errorDomain, code: exerciseDataLoadError, userInfo: [NSLocalizedDescriptionKey: "The exercise path wasn't valid"])
+        }
+        return error
+    }
+    
+    func loadData() {
         //load the data
-        //send a notification when it's done. 
+        //send a notification when it's done.
+        
         
     }
 }

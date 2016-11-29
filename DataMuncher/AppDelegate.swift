@@ -14,12 +14,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var dataStack: CoreDataManager?
-
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        dataStack = CoreDataManager()
+        dataStack = CoreDataManager(callback: { (error) in
+            
+            if(error == nil){
+                self.dataStack?.loadExerciseData()
+            }
+        })
         
         //Show some basic UI so the user's happy...
         

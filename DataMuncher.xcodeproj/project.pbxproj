@@ -19,6 +19,7 @@
 		AF6956681DECFF8800DCA06F /* ExerciseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956671DECFF8800DCA06F /* ExerciseItem.swift */; };
 		AF6956A61DED05DE00DCA06F /* ExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956A51DED05DE00DCA06F /* ExerciseViewController.swift */; };
 		AF6956A81DED0E2900DCA06F /* ExerciseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956A71DED0E2900DCA06F /* ExerciseTableViewCell.swift */; };
+		AF6956AA1DED18B300DCA06F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956A91DED18B300DCA06F /* MainViewController.swift */; };
 		AF6C60941DEC628C00DF57DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C60931DEC628C00DF57DF /* AppDelegate.swift */; };
 		AF6C60961DEC628C00DF57DF /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C60951DEC628C00DF57DF /* FoodViewController.swift */; };
 		AF6C60991DEC628C00DF57DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF6C60971DEC628C00DF57DF /* Main.storyboard */; };
@@ -61,6 +62,7 @@
 		AF6956671DECFF8800DCA06F /* ExerciseItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseItem.swift; sourceTree = "<group>"; };
 		AF6956A51DED05DE00DCA06F /* ExerciseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseViewController.swift; sourceTree = "<group>"; };
 		AF6956A71DED0E2900DCA06F /* ExerciseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseTableViewCell.swift; sourceTree = "<group>"; };
+		AF6956A91DED18B300DCA06F /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		AF6C60901DEC628C00DF57DF /* DataMuncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataMuncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6C60931DEC628C00DF57DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF6C60951DEC628C00DF57DF /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				AF6C60951DEC628C00DF57DF /* FoodViewController.swift */,
 				AF6956A51DED05DE00DCA06F /* ExerciseViewController.swift */,
 				AF6956A71DED0E2900DCA06F /* ExerciseTableViewCell.swift */,
+				AF6956A91DED18B300DCA06F /* MainViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				AF6C60961DEC628C00DF57DF /* FoodViewController.swift in Sources */,
 				AF6956521DECE4F900DCA06F /* CoreDataManager.swift in Sources */,
 				AF6C609C1DEC628C00DF57DF /* DataMuncher.xcdatamodeld in Sources */,
+				AF6956AA1DED18B300DCA06F /* MainViewController.swift in Sources */,
 				AF6956681DECFF8800DCA06F /* ExerciseItem.swift in Sources */,
 				AF6C60941DEC628C00DF57DF /* AppDelegate.swift in Sources */,
 			);
