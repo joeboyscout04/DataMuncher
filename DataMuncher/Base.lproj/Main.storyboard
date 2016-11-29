@@ -154,6 +154,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="xtv-Fu-HeB"/>
+                    <connections>
+                        <outlet property="tableView" destination="CKi-To-33g" id="6Zy-ZV-44f"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fDH-xT-6T6" sceneMemberID="firstResponder"/>
             </objects>

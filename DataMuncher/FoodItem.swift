@@ -71,7 +71,7 @@ class FoodItem: NSManagedObject {
 //    @NSManaged var hidden: Bool
 //    @NSManaged var custom: Bool
     @NSManaged var calories: Float
-    @NSManaged var oid: Int
+    @NSManaged var oid: String
     @NSManaged var servingCategory: Int
     @NSManaged var saturatedFat: Float
     @NSManaged var potassium: Float
@@ -147,7 +147,7 @@ class FoodItem: NSManagedObject {
 //        self.hidden = newhidden
 //        self.custom = newcustom
         self.calories = newcalories
-        self.oid = newoid
+        self.oid = "\(newoid)"
         self.servingCategory = newservingCategory
         self.saturatedFat = newsaturatedFat
         self.potassium = newpotassium

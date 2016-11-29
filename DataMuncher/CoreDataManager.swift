@@ -13,12 +13,14 @@ import DBAlertController
 class CoreDataManager: NSObject {
     
     var managedObjectContext: NSManagedObjectContext
+    var storeCoordinator:NSPersistentStoreCoordinator
     let errorDomain = "self.edu.CoreDataManager"
     let errorTitle = "Error"
     let exerciseDataLoadError = 100
     let foodDataError = 200
     
-    let coreDataInitializedNotificaitonKey = "CoreDataInitialized"
+    static let coreDataInitializedNotificaitonKey = "CoreDataInitialized"
+    static let exerciseDataLoadedNotificationKey = "ExerciseDataLoaded"
     
 
     init(callback:@escaping (NSError?) -> ()) {
@@ -31,9 +33,11 @@ class CoreDataManager: NSObject {
         }
         
         //set up the coordinator.
-        let storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+        let storedCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+        storeCoordinator = storedCoordinator
         managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = storeCoordinator
+        managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         DispatchQueue.global(qos: DispatchQoS.background.qosClass).async {
             
@@ -47,14 +51,14 @@ class CoreDataManager: NSObject {
             let storeURL = docURL?.appendingPathComponent("DataMuncher.sqlite")
 
             do {
-                try storeCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
+                try storedCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
                 callback(nil)
                 
             } catch {
                 fatalError("Error migrating store: \(error)")
             }
             
-            let notification = NSNotification(name: NSNotification.Name(rawValue: "CoreDataInitialized"), object: nil) as Notification
+            let notification = NSNotification(name: NSNotification.Name(rawValue: CoreDataManager.coreDataInitializedNotificaitonKey), object: nil) as Notification
             NotificationQueue.default.enqueue(notification, postingStyle: NotificationQueue.PostingStyle.asap)
             
         }
@@ -98,6 +102,10 @@ class CoreDataManager: NSObject {
                                 DBAlertController(title: self.errorTitle, message: "Failure to save exercise data", preferredStyle: UIAlertControllerStyle.alert)
                             }
                         }
+                        
+                        let notification = NSNotification(name: NSNotification.Name(rawValue: CoreDataManager.exerciseDataLoadedNotificationKey), object: nil) as Notification
+                        NotificationQueue.default.enqueue(notification, postingStyle: NotificationQueue.PostingStyle.asap)
+                        
                     })
                 }
                 catch {

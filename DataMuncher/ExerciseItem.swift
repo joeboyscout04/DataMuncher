@@ -46,7 +46,7 @@ class ExerciseItem: NSManagedObject {
 //    @NSManaged var photoVersion: Int
 //    @NSManaged var custom : Bool
     @NSManaged var name_pt : String
-    @NSManaged var oid: Int
+    @NSManaged var oid: String
     @NSManaged var name_no: String
     @NSManaged var name_sv: String
     @NSManaged var name_es: String
@@ -59,6 +59,7 @@ class ExerciseItem: NSManagedObject {
     @NSManaged var name_nl: String
     @NSManaged var calories: Float
     @NSManaged var name_it: String
+    
     
     
     
@@ -76,7 +77,7 @@ class ExerciseItem: NSManagedObject {
         let newname_no = jsonDict["name_no"] as?  String,
         let newname_sv = jsonDict["name_sv"] as?  String,
         let newname_es = jsonDict["name_es"] as?  String,
-        let newlastUpdated = jsonDict["lastupdated"] as?  Date,
+        let newlastUpdated = jsonDict["lastupdated"] as?  Double,
         let newname_ru = jsonDict["name_ru"] as?  String,
 //        let newaddedByUser= jsonDict["key"] as?  Bool,
         let newname_de = jsonDict["name_de"] as?  String,
@@ -93,11 +94,11 @@ class ExerciseItem: NSManagedObject {
         self.name_pl = newname_pl
         self.name_da = newname_da
         self.name_pt = newname_pt
-        self.oid = newoid
+        self.oid = "\(newoid)"
         self.name_no = newname_no
         self.name_sv = newname_sv
         self.name_es = newname_es
-        self.lastUpdated = newlastUpdated
+        self.lastUpdated = Date(timeIntervalSince1970: newlastUpdated)
         self.name_ru = newname_ru
         self.name_de = newname_de
         self.title = newtitle
