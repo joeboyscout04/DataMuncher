@@ -10,8 +10,17 @@
 		0F05BF63A412B764D20557C3 /* Pods_DataMuncherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854F3DD99B9571B6BD975430 /* Pods_DataMuncherUITests.framework */; };
 		14A6BE0F1E9B3C63D7B0E8C8 /* Pods_DataMuncher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183A35735517159CEA66C8C1 /* Pods_DataMuncher.framework */; };
 		963662C165F35B9D474704C8 /* Pods_DataMuncherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6E46E40F19D8B11EB3758 /* Pods_DataMuncherTests.framework */; };
+		AF6956521DECE4F900DCA06F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956511DECE4F900DCA06F /* CoreDataManager.swift */; };
+		AF6956541DECEDD500DCA06F /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956531DECEDD500DCA06F /* FoodItem.swift */; };
+		AF6956621DECF4A400DCA06F /* foodStatic.json in Resources */ = {isa = PBXBuildFile; fileRef = AF69565F1DECF4A400DCA06F /* foodStatic.json */; };
+		AF6956631DECF4A400DCA06F /* exercisesStatic.json in Resources */ = {isa = PBXBuildFile; fileRef = AF6956601DECF4A400DCA06F /* exercisesStatic.json */; };
+		AF6956641DECF4A400DCA06F /* categoriesStatic.json in Resources */ = {isa = PBXBuildFile; fileRef = AF6956611DECF4A400DCA06F /* categoriesStatic.json */; };
+		AF6956661DECF5E500DCA06F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF6956651DECF5E500DCA06F /* Localizable.strings */; };
+		AF6956681DECFF8800DCA06F /* ExerciseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956671DECFF8800DCA06F /* ExerciseItem.swift */; };
+		AF6956A61DED05DE00DCA06F /* ExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956A51DED05DE00DCA06F /* ExerciseViewController.swift */; };
+		AF6956A81DED0E2900DCA06F /* ExerciseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956A71DED0E2900DCA06F /* ExerciseTableViewCell.swift */; };
 		AF6C60941DEC628C00DF57DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C60931DEC628C00DF57DF /* AppDelegate.swift */; };
-		AF6C60961DEC628C00DF57DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C60951DEC628C00DF57DF /* ViewController.swift */; };
+		AF6C60961DEC628C00DF57DF /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C60951DEC628C00DF57DF /* FoodViewController.swift */; };
 		AF6C60991DEC628C00DF57DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF6C60971DEC628C00DF57DF /* Main.storyboard */; };
 		AF6C609C1DEC628C00DF57DF /* DataMuncher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF6C609A1DEC628C00DF57DF /* DataMuncher.xcdatamodeld */; };
 		AF6C609E1DEC628C00DF57DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF6C609D1DEC628C00DF57DF /* Assets.xcassets */; };
@@ -43,9 +52,18 @@
 		751365F7354FB4BB2176A769 /* Pods-DataMuncherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataMuncherTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DataMuncherTests/Pods-DataMuncherTests.release.xcconfig"; sourceTree = "<group>"; };
 		83E6E46E40F19D8B11EB3758 /* Pods_DataMuncherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DataMuncherTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		854F3DD99B9571B6BD975430 /* Pods_DataMuncherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DataMuncherUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF6956511DECE4F900DCA06F /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		AF6956531DECEDD500DCA06F /* FoodItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
+		AF69565F1DECF4A400DCA06F /* foodStatic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = foodStatic.json; sourceTree = "<group>"; };
+		AF6956601DECF4A400DCA06F /* exercisesStatic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exercisesStatic.json; sourceTree = "<group>"; };
+		AF6956611DECF4A400DCA06F /* categoriesStatic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = categoriesStatic.json; sourceTree = "<group>"; };
+		AF6956651DECF5E500DCA06F /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		AF6956671DECFF8800DCA06F /* ExerciseItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseItem.swift; sourceTree = "<group>"; };
+		AF6956A51DED05DE00DCA06F /* ExerciseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseViewController.swift; sourceTree = "<group>"; };
+		AF6956A71DED0E2900DCA06F /* ExerciseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseTableViewCell.swift; sourceTree = "<group>"; };
 		AF6C60901DEC628C00DF57DF /* DataMuncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataMuncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6C60931DEC628C00DF57DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AF6C60951DEC628C00DF57DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AF6C60951DEC628C00DF57DF /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		AF6C60981DEC628C00DF57DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF6C609B1DEC628C00DF57DF /* DataMuncher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataMuncher.xcdatamodel; sourceTree = "<group>"; };
 		AF6C609D1DEC628C00DF57DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -114,6 +132,46 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AF69565B1DECF3F600DCA06F /* RawData */ = {
+			isa = PBXGroup;
+			children = (
+				AF69565F1DECF4A400DCA06F /* foodStatic.json */,
+				AF6956601DECF4A400DCA06F /* exercisesStatic.json */,
+				AF6956611DECF4A400DCA06F /* categoriesStatic.json */,
+			);
+			name = RawData;
+			sourceTree = "<group>";
+		};
+		AF69565C1DECF40C00DCA06F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AF6C609D1DEC628C00DF57DF /* Assets.xcassets */,
+				AF6C60A21DEC628C00DF57DF /* Info.plist */,
+				AF6956651DECF5E500DCA06F /* Localizable.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		AF69565D1DECF42800DCA06F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				AF6956531DECEDD500DCA06F /* FoodItem.swift */,
+				AF6956671DECFF8800DCA06F /* ExerciseItem.swift */,
+				AF6C609A1DEC628C00DF57DF /* DataMuncher.xcdatamodeld */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		AF69565E1DECF43300DCA06F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AF6C60951DEC628C00DF57DF /* FoodViewController.swift */,
+				AF6956A51DED05DE00DCA06F /* ExerciseViewController.swift */,
+				AF6956A71DED0E2900DCA06F /* ExerciseTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		AF6C60871DEC628C00DF57DF = {
 			isa = PBXGroup;
 			children = (
@@ -139,13 +197,14 @@
 		AF6C60921DEC628C00DF57DF /* DataMuncher */ = {
 			isa = PBXGroup;
 			children = (
+				AF69565E1DECF43300DCA06F /* Views */,
+				AF69565D1DECF42800DCA06F /* Data */,
 				AF6C60931DEC628C00DF57DF /* AppDelegate.swift */,
-				AF6C60951DEC628C00DF57DF /* ViewController.swift */,
-				AF6C60971DEC628C00DF57DF /* Main.storyboard */,
-				AF6C609D1DEC628C00DF57DF /* Assets.xcassets */,
+				AF6956511DECE4F900DCA06F /* CoreDataManager.swift */,
 				AF6C609F1DEC628C00DF57DF /* LaunchScreen.storyboard */,
-				AF6C60A21DEC628C00DF57DF /* Info.plist */,
-				AF6C609A1DEC628C00DF57DF /* DataMuncher.xcdatamodeld */,
+				AF6C60971DEC628C00DF57DF /* Main.storyboard */,
+				AF69565B1DECF3F600DCA06F /* RawData */,
+				AF69565C1DECF40C00DCA06F /* Resources */,
 			);
 			path = DataMuncher;
 			sourceTree = "<group>";
@@ -290,6 +349,10 @@
 				AF6C60A11DEC628C00DF57DF /* LaunchScreen.storyboard in Resources */,
 				AF6C609E1DEC628C00DF57DF /* Assets.xcassets in Resources */,
 				AF6C60991DEC628C00DF57DF /* Main.storyboard in Resources */,
+				AF6956661DECF5E500DCA06F /* Localizable.strings in Resources */,
+				AF6956631DECF4A400DCA06F /* exercisesStatic.json in Resources */,
+				AF6956621DECF4A400DCA06F /* foodStatic.json in Resources */,
+				AF6956641DECF4A400DCA06F /* categoriesStatic.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,8 +515,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF6C60961DEC628C00DF57DF /* ViewController.swift in Sources */,
+				AF6956541DECEDD500DCA06F /* FoodItem.swift in Sources */,
+				AF6956A81DED0E2900DCA06F /* ExerciseTableViewCell.swift in Sources */,
+				AF6956A61DED05DE00DCA06F /* ExerciseViewController.swift in Sources */,
+				AF6C60961DEC628C00DF57DF /* FoodViewController.swift in Sources */,
+				AF6956521DECE4F900DCA06F /* CoreDataManager.swift in Sources */,
 				AF6C609C1DEC628C00DF57DF /* DataMuncher.xcdatamodeld in Sources */,
+				AF6956681DECFF8800DCA06F /* ExerciseItem.swift in Sources */,
 				AF6C60941DEC628C00DF57DF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -609,6 +677,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TW9WUV96TG;
 				INFOPLIST_FILE = DataMuncher/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.DataMuncher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -623,6 +692,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TW9WUV96TG;
 				INFOPLIST_FILE = DataMuncher/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.DataMuncher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -711,6 +781,7 @@
 				AF6C60BD1DEC628C00DF57DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF6C60BE1DEC628C00DF57DF /* Build configuration list for PBXNativeTarget "DataMuncherTests" */ = {
 			isa = XCConfigurationList;
@@ -719,6 +790,7 @@
 				AF6C60C01DEC628C00DF57DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF6C60C11DEC628C00DF57DF /* Build configuration list for PBXNativeTarget "DataMuncherUITests" */ = {
 			isa = XCConfigurationList;
@@ -727,6 +799,7 @@
 				AF6C60C31DEC628C00DF57DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
