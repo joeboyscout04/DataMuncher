@@ -20,6 +20,10 @@
 		AF6956A61DED05DE00DCA06F /* ExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956A51DED05DE00DCA06F /* ExerciseViewController.swift */; };
 		AF6956A81DED0E2900DCA06F /* ExerciseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956A71DED0E2900DCA06F /* ExerciseTableViewCell.swift */; };
 		AF6956AA1DED18B300DCA06F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956A91DED18B300DCA06F /* MainViewController.swift */; };
+		AF6956AC1DEDA3EB00DCA06F /* JsonParsedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956AB1DEDA3EB00DCA06F /* JsonParsedObject.swift */; };
+		AF6956AE1DEDB1DB00DCA06F /* FoodCategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956AD1DEDB1DB00DCA06F /* FoodCategoryItem.swift */; };
+		AF6956B01DEDB6A000DCA06F /* LocalizedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956AF1DEDB6A000DCA06F /* LocalizedItem.swift */; };
+		AF6956B21DEDB7E500DCA06F /* UniqueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6956B11DEDB7E500DCA06F /* UniqueItem.swift */; };
 		AF6C60941DEC628C00DF57DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C60931DEC628C00DF57DF /* AppDelegate.swift */; };
 		AF6C60961DEC628C00DF57DF /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C60951DEC628C00DF57DF /* FoodViewController.swift */; };
 		AF6C60991DEC628C00DF57DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF6C60971DEC628C00DF57DF /* Main.storyboard */; };
@@ -63,6 +67,10 @@
 		AF6956A51DED05DE00DCA06F /* ExerciseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseViewController.swift; sourceTree = "<group>"; };
 		AF6956A71DED0E2900DCA06F /* ExerciseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseTableViewCell.swift; sourceTree = "<group>"; };
 		AF6956A91DED18B300DCA06F /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		AF6956AB1DEDA3EB00DCA06F /* JsonParsedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonParsedObject.swift; sourceTree = "<group>"; };
+		AF6956AD1DEDB1DB00DCA06F /* FoodCategoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCategoryItem.swift; sourceTree = "<group>"; };
+		AF6956AF1DEDB6A000DCA06F /* LocalizedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedItem.swift; sourceTree = "<group>"; };
+		AF6956B11DEDB7E500DCA06F /* UniqueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniqueItem.swift; sourceTree = "<group>"; };
 		AF6C60901DEC628C00DF57DF /* DataMuncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataMuncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6C60931DEC628C00DF57DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF6C60951DEC628C00DF57DF /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
@@ -157,8 +165,12 @@
 		AF69565D1DECF42800DCA06F /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				AF6956AB1DEDA3EB00DCA06F /* JsonParsedObject.swift */,
+				AF6956AF1DEDB6A000DCA06F /* LocalizedItem.swift */,
+				AF6956B11DEDB7E500DCA06F /* UniqueItem.swift */,
 				AF6956531DECEDD500DCA06F /* FoodItem.swift */,
 				AF6956671DECFF8800DCA06F /* ExerciseItem.swift */,
+				AF6956AD1DEDB1DB00DCA06F /* FoodCategoryItem.swift */,
 				AF6C609A1DEC628C00DF57DF /* DataMuncher.xcdatamodeld */,
 			);
 			name = Data;
@@ -518,11 +530,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF6956B01DEDB6A000DCA06F /* LocalizedItem.swift in Sources */,
 				AF6956541DECEDD500DCA06F /* FoodItem.swift in Sources */,
+				AF6956B21DEDB7E500DCA06F /* UniqueItem.swift in Sources */,
+				AF6956AE1DEDB1DB00DCA06F /* FoodCategoryItem.swift in Sources */,
 				AF6956A81DED0E2900DCA06F /* ExerciseTableViewCell.swift in Sources */,
 				AF6956A61DED05DE00DCA06F /* ExerciseViewController.swift in Sources */,
 				AF6C60961DEC628C00DF57DF /* FoodViewController.swift in Sources */,
 				AF6956521DECE4F900DCA06F /* CoreDataManager.swift in Sources */,
+				AF6956AC1DEDA3EB00DCA06F /* JsonParsedObject.swift in Sources */,
 				AF6C609C1DEC628C00DF57DF /* DataMuncher.xcdatamodeld in Sources */,
 				AF6956AA1DED18B300DCA06F /* MainViewController.swift in Sources */,
 				AF6956681DECFF8800DCA06F /* ExerciseItem.swift in Sources */,

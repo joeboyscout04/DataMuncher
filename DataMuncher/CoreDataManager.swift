@@ -65,31 +65,30 @@ class CoreDataManager: NSObject {
     }
     
     
-    func loadExerciseData() -> NSError? {
-
+    func batchLoadData(resource:String,entity:String) -> NSError? {
         var error:NSError? = nil
-        if let exercisePath = Bundle.main.path(forResource: "exercisesStatic", ofType: "json") {
-            if let exerciseData = NSData.init(contentsOfFile: exercisePath) as? Data {
+        if let path = Bundle.main.path(forResource: resource, ofType: "json") {
+            if let data = NSData.init(contentsOfFile: path) as? Data {
                 
                 do {
-                    let exerciseJson = try JSONSerialization.jsonObject(with: exerciseData, options: JSONSerialization.ReadingOptions.allowFragments) as! [[String:AnyObject]]
+                    let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [[String:AnyObject]]
                     
-                    //turn it into data that we want to save 
+                    //turn it into data that we want to save
                     //batch it up
                     
                     managedObjectContext.perform({
                         
                         var index = 0
                         let batchCount = 1000
-                        while(index < exerciseJson.count - 1){
+                        while(index < json.count - 1){
                             
                             
-                            let addToIndex = exerciseJson.count - index < batchCount ? exerciseJson.count - index - 1 : batchCount
+                            let addToIndex = json.count - index < batchCount ? json.count - index - 1 : batchCount
                             let newIndex = index + addToIndex
-                            let arraySlice = exerciseJson[index...newIndex]
+                            let arraySlice = json[index...newIndex]
                             for exercise in arraySlice {
-                             
-                                let newExerciseObject = NSEntityDescription.insertNewObject(forEntityName: "ExerciseItem", into: self.managedObjectContext) as! ExerciseItem
+                                
+                                let newExerciseObject = NSEntityDescription.insertNewObject(forEntityName: entity, into: self.managedObjectContext) as! JsonParsedObject
                                 newExerciseObject.updateFromJson(jsonDict: exercise)
                             }
                             index = newIndex
@@ -98,10 +97,17 @@ class CoreDataManager: NSObject {
                                 try self.managedObjectContext.save()
                             }
                             catch {
-                                NSLog("Failure to save exercise data")
-                                DBAlertController(title: self.errorTitle, message: "Failure to save exercise data", preferredStyle: UIAlertControllerStyle.alert)
+                                NSLog("Failure to save \(entity) data")
+                                let alert = DBAlertController(title: self.errorTitle, message: "Failure to save \(entity) data", preferredStyle: UIAlertControllerStyle.alert)
+                                let okAction = UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.cancel, handler: { (action) in
+                                    alert.dismiss(animated: true, completion: {})
+                                })
+                                alert.addAction(okAction)
+                                alert.show()
                             }
                         }
+                        
+                        NSLog("The data from \(resource) was loaded into CoreData Entity \(entity)")
                         
                         let notification = NSNotification(name: NSNotification.Name(rawValue: CoreDataManager.exerciseDataLoadedNotificationKey), object: nil) as Notification
                         NotificationQueue.default.enqueue(notification, postingStyle: NotificationQueue.PostingStyle.asap)
@@ -109,21 +115,44 @@ class CoreDataManager: NSObject {
                     })
                 }
                 catch {
-                    return NSError(domain: self.errorDomain, code: exerciseDataLoadError, userInfo: [NSLocalizedDescriptionKey: "The exercise data failed to load into CoreData"])
+                    return NSError(domain: self.errorDomain, code: exerciseDataLoadError, userInfo: [NSLocalizedDescriptionKey: "The \(entity) data failed to load into CoreData"])
                 }
             }
             else {
-                error = NSError(domain: self.errorDomain, code: exerciseDataLoadError, userInfo: [NSLocalizedDescriptionKey: "The exercise path wasn't valid"])
+                error = NSError(domain: self.errorDomain, code: exerciseDataLoadError, userInfo: [NSLocalizedDescriptionKey: "The resource \(resource) couldn't be turned into data."])
             }
         }
         else{
-            error = NSError(domain: self.errorDomain, code: exerciseDataLoadError, userInfo: [NSLocalizedDescriptionKey: "The exercise path wasn't valid"])
+            error = NSError(domain: self.errorDomain, code: exerciseDataLoadError, userInfo: [NSLocalizedDescriptionKey: "The \(resource) path wasn't valid"])
         }
         return error
     }
     
+    
+    func loadExerciseData() -> NSError? {
+        
+        return batchLoadData(resource: "exercisesStatic", entity: "ExerciseItem")
+
+    }
+    
+    func loadFoodData() -> NSError? {
+        
+        return batchLoadData(resource: "foodStatic", entity: "FoodItem")
+        
+    }
+    
+    func loadCategoryData() -> NSError? {
+        
+        return batchLoadData(resource: "categoriesStatic", entity: "FoodCategoryItem")
+        
+    }
+    
     func loadData() {
         //load the data
+        loadExerciseData()
+        loadFoodData()
+        loadCategoryData()
+        
         //send a notification when it's done.
         
         

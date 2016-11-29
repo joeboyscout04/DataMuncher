@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dataStack = CoreDataManager(callback: { (error) in
             
             if(error == nil){
-                self.dataStack?.loadExerciseData()
+                self.dataStack?.loadData()
             }
         })
         

@@ -6,6 +6,7 @@
         <attribute name="name_da" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name_de" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name_es" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_fi" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name_fr" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name_it" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name_nl" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,8 +15,32 @@
         <attribute name="name_pt" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name_ru" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name_sv" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="oid" attributeType="String" syncable="YES"/>
+        <attribute name="oid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="oid"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="FoodCategoryItem" representedClassName=".FoodCategoryItem" syncable="YES">
+        <attribute name="categoryName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="headCategoryId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lastUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name_da" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_de" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_es" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_fi" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_fr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_it" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_nl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_no" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_pl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_pt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_ru" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_sv" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="oid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="servingsCategory" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="oid"/>
@@ -24,6 +49,7 @@
     </entity>
     <entity name="FoodItem" representedClassName=".FoodItem" syncable="YES">
         <attribute name="brand" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="calories" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="carbohydrates" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="categoryId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="cholesterol" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -35,7 +61,7 @@
         <attribute name="lastUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="oCategoryId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="oid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="pcsInGram" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pcsInGram" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="pcsText" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="potassium" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="protein" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -52,7 +78,8 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="FoodItem" positionX="-63" positionY="-18" width="128" height="375"/>
-        <element name="ExerciseItem" positionX="-54" positionY="144" width="128" height="270"/>
+        <element name="FoodItem" positionX="-63" positionY="2" width="128" height="388"/>
+        <element name="ExerciseItem" positionX="378" positionY="72" width="128" height="283"/>
+        <element name="FoodCategoryItem" positionX="162" positionY="72" width="128" height="298"/>
     </elements>
 </model>
