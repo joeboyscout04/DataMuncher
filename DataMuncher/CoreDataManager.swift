@@ -21,6 +21,8 @@ class CoreDataManager: NSObject {
     
     static let coreDataInitializedNotificaitonKey = "CoreDataInitialized"
     static let exerciseDataLoadedNotificationKey = "ExerciseDataLoaded"
+    static let foodDataLoadedNotificationKey = "FoodDataLoaded"
+    static let categoriesDataLoadedNotificationKey = "CategoriesDataLoaded"
     
 
     init(callback:@escaping (NSError?) -> ()) {

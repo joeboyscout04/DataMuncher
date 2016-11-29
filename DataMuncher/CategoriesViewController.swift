@@ -1,8 +1,8 @@
 //
-//  ExerciseViewController.swift
+//  CategoriesViewController.swift
 //  DataMuncher
 //
-//  Created by Joseph Elliott on 11/28/16.
+//  Created by Joseph Elliott on 11/29/16.
 //  Copyright © 2016 Joseph Elliott. All rights reserved.
 //
 
@@ -10,15 +10,12 @@ import Foundation
 import UIKit
 import CoreData
 
-
-
-class ExerciseViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
+class CategoriesViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
     
-    //MARK: Properties
     
     @IBOutlet weak var tableView: UITableView!
     
-    var exercises:[ExerciseItem] = []
+    var categories:[FoodCategoryItem] = []
     
     //MARK: - CoreData
     
@@ -39,15 +36,21 @@ class ExerciseViewController: UIViewController, UITableViewDataSource,UITableVie
     }()
     
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ExerciseViewController.fetchExerciseData(note:)),
-                                                         name: NSNotification.Name(rawValue: CoreDataManager.exerciseDataLoadedNotificationKey), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CategoriesViewController.fetchCategoriesData(note:)),
+                                               name: NSNotification.Name(rawValue: CoreDataManager.categoriesDataLoadedNotificationKey), object: nil)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //check to see if the data's loaded already 
+        
+        fetchCategoriesData(note: Notification(name: NSNotification.Name(rawValue: CoreDataManager.categoriesDataLoadedNotificationKey)))
     }
     
     override func didReceiveMemoryWarning() {
@@ -66,18 +69,18 @@ class ExerciseViewController: UIViewController, UITableViewDataSource,UITableVie
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return exercises.count
+        return categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseTableViewCell", for: indexPath)
-        if let exerciseCell = cell as? ExerciseTableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath)
+        if let categoryCell = cell as? CategoryTableViewCell {
             
-            let exercise = exercises[indexPath.row]
+            let category = categories[indexPath.row]
             
-            exerciseCell.titleLabel.text = exercise.title
+            categoryCell.titleLabel.text = category.categoryName
             
-            cell = exerciseCell
+            cell = categoryCell
         }
         
         return cell
@@ -85,13 +88,13 @@ class ExerciseViewController: UIViewController, UITableViewDataSource,UITableVie
     
     //MARK: - Core Data Retrieval
     
-    func fetchExerciseData(note: Notification) {
+    func fetchCategoriesData(note: Notification) {
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ExerciseItem")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FoodCategoryItem")
         
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
-            exercises = results as! [ExerciseItem]
+            categories = results as! [FoodCategoryItem]
         }
         catch let error as NSError {
             

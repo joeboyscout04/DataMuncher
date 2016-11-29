@@ -37,3 +37,7 @@ class MainViewController : UITabBarController {
     
     
 }
+
+extension UIViewController {
+    
+}
