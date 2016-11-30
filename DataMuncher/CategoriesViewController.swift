@@ -78,6 +78,8 @@ class CategoriesViewController: UIViewController, UITableViewDataSource,UITableV
             let indexpath = tableView.indexPathForSelectedRow!
             let selectedCategory = categories[indexpath.row]
             
+            destination.foodSubset = true
+            
             //data weirdness...if servingscategory is 0, then it's a letter
             if(selectedCategory.servingsCategory == 0){
                 //get the foods for the selected item and assign them
@@ -87,7 +89,10 @@ class CategoriesViewController: UIViewController, UITableViewDataSource,UITableV
             
                 //get the foods for the selected item and assign them
                 destination.foods = foodsForCategory(category: selectedCategory)
+                
             }
+            
+            //TODO: Sort out using localization
             
         }
         else {

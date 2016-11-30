@@ -74,9 +74,7 @@ class FoodDetailViewController: UIViewController, UICollectionViewDataSource,UIC
                              NutritionData(title: NSLocalizedString("Calories", comment: ""), image: UIImage(named:"calories_icon")!, data: food.calories, color:UIColor(hexString:"3399ff")),
                              NutritionData(title: NSLocalizedString("Cholesterol", comment: ""), image: UIImage(named:"cholesterol_icon")!, data: food.cholesterol, color:UIColor(hexString:"cccc00"))
             ]
-            
         }
-        
     }
     
     

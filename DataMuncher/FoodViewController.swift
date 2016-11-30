@@ -17,6 +17,7 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
     @IBOutlet weak var tableView: UITableView!
     
     var foods:[FoodItem] = []
+    var foodSubset: Bool = false
     
     //MARK: - CoreData
     
@@ -49,7 +50,11 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if(foods.count <= 0) {
+        if(foodSubset) {
+            //the food data was already loaded from somewhere else...
+            spinner.stopAnimating()
+        }
+        else {
             //check to see if the data's loaded already, we could either start the fetch from a notification or from appearance.
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             if let stack = appDelegate.dataStack{
@@ -57,10 +62,6 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
                     fetchDataAndShowError(displayError: true)
                 }
             }
-        }
-        else {
-            //the food data was already loaded from somewhere else...
-            spinner.stopAnimating()
         }
     }
     
@@ -140,7 +141,7 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
     
     func fetchData(note: Notification) {
         
-        if(foods.count <= 0){
+        if(!foodSubset){
             fetchDataAndShowError(displayError: true)
         }
         

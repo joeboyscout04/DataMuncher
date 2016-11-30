@@ -143,6 +143,12 @@ class CoreDataManager: NSObject {
                                     alert.show()
                                 }
                                 
+                                //go ahead and fire the notification for the views to reload, we'll keep on parsing while there's something to look at.
+                                DispatchQueue.main.async {
+                                    let notification = NSNotification(name: NSNotification.Name(rawValue: notificationKey), object: nil) as Notification
+                                    NotificationQueue.default.enqueue(notification, postingStyle: NotificationQueue.PostingStyle.asap)
+                                }
+                                
                                 context.reset()
                             }
                             if(entity == "ExerciseItem"){
@@ -156,10 +162,6 @@ class CoreDataManager: NSObject {
                             }
                             NSLog("The data from \(resource) was loaded into CoreData Entity \(entity)")
                             
-                            DispatchQueue.main.async {
-                                let notification = NSNotification(name: NSNotification.Name(rawValue: notificationKey), object: nil) as Notification
-                                NotificationQueue.default.enqueue(notification, postingStyle: NotificationQueue.PostingStyle.asap)
-                            }
                         })
                     }
                     catch {
