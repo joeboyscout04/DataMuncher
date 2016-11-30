@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var dataStack: CoreDataManager?
     
+    let appColor = UIColor(red: 73.0/255.0, green: 142.0/255.0, blue: 63.0/255.0, alpha: 1.0)
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -32,6 +34,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let firstLanguage = deviceLanguages.first!
         NSLog("The device language is \(firstLanguage)")
         
+        //set up theming
+        //Navbar skinning
+        let navbarSkin = UINavigationBar.appearance()
+        navbarSkin.barTintColor = self.appColor
+        
+        navbarSkin.tintColor = UIColor.white
+        
+        let navBarFont = UIFont(name:"GillSans", size:18);
+        let textTitleOptions = [NSForegroundColorAttributeName:UIColor.white, NSFontAttributeName:navBarFont]
+        
+        navbarSkin.titleTextAttributes = textTitleOptions
         
         return true
     }

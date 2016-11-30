@@ -13,6 +13,7 @@ import CoreData
 class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
     
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     
     var foods:[FoodItem] = []
@@ -42,7 +43,7 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
         
         NotificationCenter.default.addObserver(self, selector: #selector(FoodViewController.fetchData(note:)),
                                                name: NSNotification.Name(rawValue: CoreDataManager.foodDataLoadedNotificationKey), object: nil)
-        
+        self.navigationItem.title = "Foods"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,6 +119,7 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
             foods = results as! [FoodItem]
+            spinner.stopAnimating()
         }
         catch let error as NSError {
             

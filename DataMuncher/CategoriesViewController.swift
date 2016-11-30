@@ -43,6 +43,8 @@ class CategoriesViewController: UIViewController, UITableViewDataSource,UITableV
         NotificationCenter.default.addObserver(self, selector: #selector(CategoriesViewController.fetchCategoriesData(note:)),
                                                name: NSNotification.Name(rawValue: CoreDataManager.categoriesDataLoadedNotificationKey), object: nil)
         
+        self.navigationItem.title = "Categories"
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
