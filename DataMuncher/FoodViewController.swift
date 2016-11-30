@@ -40,8 +40,8 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        NotificationCenter.default.addObserver(self, selector: #selector(CategoriesViewController.fetchCategoriesData(note:)),
-                                               name: NSNotification.Name(rawValue: CoreDataManager.categoriesDataLoadedNotificationKey), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FoodViewController.fetchData(note:)),
+                                               name: NSNotification.Name(rawValue: CoreDataManager.foodDataLoadedNotificationKey), object: nil)
         
     }
     
@@ -51,8 +51,8 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
         //check to see if the data's loaded already, we could either start the fetch from a notification or from appearance.
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         if let stack = appDelegate.dataStack{
-            if(stack.categoryDataLoaded){
-                fetchCategoriesDataAndShowError(displayError: true)
+            if(stack.foodDataLoaded){
+                fetchDataAndShowError(displayError: true)
             }
         }
     }
@@ -90,9 +90,26 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if(segue.identifier! == "FoodDetailSegue") {
+
+            let destination = segue.destination as! FoodDetailViewController
+            let indexpath = tableView.indexPathForSelectedRow!
+            let selectedObject = foods[indexpath.row]
+            
+            destination.foodItem = selectedObject
+
+        }
+        else {
+            NSLog("Unknown Segue \(segue.identifier)")
+        }
+    }
+
+    
     //MARK: - Core Data Retrieval
     
-    func fetchCategoriesDataAndShowError(displayError:Bool){
+    func fetchDataAndShowError(displayError:Bool){
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FoodItem")
         
         let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
@@ -113,9 +130,9 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
         
     }
     
-    func fetchCategoriesData(note: Notification) {
+    func fetchData(note: Notification) {
         
-        fetchCategoriesDataAndShowError(displayError: true)
+        fetchDataAndShowError(displayError: true)
         
     }
 }

@@ -78,8 +78,8 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="FoodItem" positionX="-63" positionY="2" width="128" height="388"/>
         <element name="ExerciseItem" positionX="378" positionY="72" width="128" height="283"/>
         <element name="FoodCategoryItem" positionX="162" positionY="72" width="128" height="298"/>
+        <element name="FoodItem" positionX="-63" positionY="2" width="128" height="388"/>
     </elements>
 </model>

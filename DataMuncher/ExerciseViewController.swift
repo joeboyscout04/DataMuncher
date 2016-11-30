@@ -50,6 +50,18 @@ class ExerciseViewController: UIViewController, UITableViewDataSource,UITableVie
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //check to see if the data's loaded already, we could either start the fetch from a notification or from appearance.
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        if let stack = appDelegate.dataStack{
+            if(stack.exerciseDataLoaded){
+                fetchExerciseDataAndShowError(displayError: true)
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -85,12 +97,10 @@ class ExerciseViewController: UIViewController, UITableViewDataSource,UITableVie
     
     //MARK: - Core Data Retrieval
     
-    func fetchExerciseData(note: Notification) {
-        
+    func fetchExerciseDataAndShowError(displayError:Bool){
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ExerciseItem")
         
         let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
-        
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         do {
@@ -99,10 +109,18 @@ class ExerciseViewController: UIViewController, UITableViewDataSource,UITableVie
         }
         catch let error as NSError {
             
-            showError(error: error)
+            if(displayError){
+                showError(error: error)
+            }
         }
         
         self.tableView.reloadData()
+        
+    }
+    
+    func fetchExerciseData(note: Notification) {
+        
+        fetchExerciseDataAndShowError(displayError: true)
         
     }
 }

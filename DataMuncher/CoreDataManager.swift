@@ -108,16 +108,17 @@ class CoreDataManager: NSObject {
                         //turn it into data that we want to save
                         //batch it up
                         NSLog("Begin batch insert of \(resource) to \(entity)")
+                        let totalCount = json.count
                         
                         context.perform({
                             
                             var index = 0
                             let batchCount = 100
-                            while(index < json.count - 1){
+                            while(index < totalCount - 1){
                                 
                                 autoreleasepool {
                                     
-                                    let addToIndex = json.count - index < batchCount ? json.count - index - 1 : batchCount
+                                    let addToIndex = totalCount - index < batchCount ? totalCount - index - 1 : batchCount
                                     let newIndex = index + addToIndex
                                     let arraySlice = json[index...newIndex]
                                     for exercise in arraySlice {
@@ -144,12 +145,21 @@ class CoreDataManager: NSObject {
                                 
                                 context.reset()
                             }
-                            
+                            if(entity == "ExerciseItem"){
+                              self.exerciseDataLoaded = true
+                            }
+                            else if(entity == "FoodItem"){
+                                self.foodDataLoaded = true
+                            }
+                            else if(entity == "FoodCategoryItem"){
+                                self.categoryDataLoaded = true
+                            }
                             NSLog("The data from \(resource) was loaded into CoreData Entity \(entity)")
                             
-                            let notification = NSNotification(name: NSNotification.Name(rawValue: notificationKey), object: nil) as Notification
-                            NotificationQueue.default.enqueue(notification, postingStyle: NotificationQueue.PostingStyle.asap)
-                            
+                            DispatchQueue.main.async {
+                                let notification = NSNotification(name: NSNotification.Name(rawValue: notificationKey), object: nil) as Notification
+                                NotificationQueue.default.enqueue(notification, postingStyle: NotificationQueue.PostingStyle.asap)
+                            }
                         })
                     }
                     catch {
