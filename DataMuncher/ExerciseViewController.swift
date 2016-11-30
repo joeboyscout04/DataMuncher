@@ -47,7 +47,6 @@ class ExerciseViewController: UIViewController, UITableViewDataSource,UITableVie
         
         NotificationCenter.default.addObserver(self, selector: #selector(ExerciseViewController.fetchExerciseData(note:)),
                                                          name: NSNotification.Name(rawValue: CoreDataManager.exerciseDataLoadedNotificationKey), object: nil)
-        self.navigationItem.title = "Exercise"
     }
     
     override func viewWillAppear(_ animated: Bool) {

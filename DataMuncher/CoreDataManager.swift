@@ -16,7 +16,7 @@ class CoreDataManager: NSObject {
     var managedObjectContext: NSManagedObjectContext
     var storeCoordinator:NSPersistentStoreCoordinator
     let errorDomain = "self.edu.CoreDataManager"
-    let errorTitle = "Error"
+    let errorTitle = NSLocalizedString("Error", comment: "")
     let exerciseDataLoadErrorCode = 100
     let foodDataLoadErrorCode = 200
     let categoryDataLoadErrorCode = 300
@@ -25,10 +25,6 @@ class CoreDataManager: NSObject {
     static let exerciseDataLoadedNotificationKey = "ExerciseDataLoaded"
     static let foodDataLoadedNotificationKey = "FoodDataLoaded"
     static let categoriesDataLoadedNotificationKey = "CategoriesDataLoaded"
-    
-    var categoryDataError:NSError? = nil
-    var foodDataError:NSError? = nil
-    var exerciseDataError:NSError? = nil
     
     var categoryDataLoaded = false
     var foodDataLoaded = false
@@ -97,7 +93,7 @@ class CoreDataManager: NSObject {
                     dataBox = try NSData(contentsOfFile: path, options:[NSData.ReadingOptions.alwaysMapped,NSData.ReadingOptions.uncached])
                 }
                 catch{
-                    NSLog("Data with contents of file failed")
+                    self.showErrorAlert(errorString: "Data with contents of file failed")
                 }
                 
                 if let data = dataBox as Data? {
@@ -134,14 +130,9 @@ class CoreDataManager: NSObject {
                                     try context.save()
                                 }
                                 catch {
-                                    NSLog("Failure to save \(entity) data")
-                                    let alert = DBAlertController(title: self.errorTitle, message: "Failure to save \(entity) data", preferredStyle: UIAlertControllerStyle.alert)
-                                    let okAction = UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.cancel, handler: { (action) in
-                                        alert.dismiss(animated: true, completion: {})
-                                    })
-                                    alert.addAction(okAction)
-                                    alert.show()
+                                    self.showErrorAlert(errorString: "Failure to save \(entity) data")
                                 }
+                                
                                 
                                 //go ahead and fire the notification for the views to reload, we'll keep on parsing while there's something to look at.
                                 DispatchQueue.main.async {
@@ -165,39 +156,33 @@ class CoreDataManager: NSObject {
                         })
                     }
                     catch {
-                        NSLog("The \(entity) data failed to load into CoreData")
+                        self.showErrorAlert(errorString: "The \(entity) data failed to load into CoreData")
                     }
                 }
                 else {
-                    NSLog("The resource \(resource) couldn't be turned into data.")
+                    self.showErrorAlert(errorString: "The resource \(resource) couldn't be turned into data.")
                 }
             }
             else{
-                NSLog("The \(resource) path wasn't valid")
+                self.showErrorAlert(errorString: "The \(resource) path wasn't valid")
             }
         }
     }
     
     
-    func loadExerciseData() -> NSError? {
+    func loadExerciseData() {
         
         batchLoadData(resource: "exercisesStatic", entity: "ExerciseItem", errorCode: exerciseDataLoadErrorCode,notificationKey: CoreDataManager.exerciseDataLoadedNotificationKey, queue: exerciseQueue)
-
-        return exerciseDataError
     }
     
-    func loadFoodData() -> NSError? {
+    func loadFoodData() {
         
         batchLoadData(resource: "foodStatic", entity: "FoodItem", errorCode: foodDataLoadErrorCode, notificationKey: CoreDataManager.foodDataLoadedNotificationKey, queue: foodQueue)
-
-        return foodDataError
     }
     
-    func loadCategoryData() -> NSError? {
+    func loadCategoryData() {
         
         batchLoadData(resource: "categoriesStatic", entity: "FoodCategoryItem", errorCode: categoryDataLoadErrorCode, notificationKey: CoreDataManager.categoriesDataLoadedNotificationKey, queue: categoryQueue)
-
-        return categoryDataError
         
     }
     
@@ -209,6 +194,16 @@ class CoreDataManager: NSObject {
         
         //send a notification when it's done.
         
-        
+    }
+    
+    func showErrorAlert(errorString:String) {
+        DispatchQueue.main.async {
+            NSLog(errorString)
+            let alert = DBAlertController(title: self.errorTitle, message: errorString, preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.cancel, handler: { (action) in
+            })
+            alert.addAction(okAction)
+            alert.show()
+        }
     }
 }

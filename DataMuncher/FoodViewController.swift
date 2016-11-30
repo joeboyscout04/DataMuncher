@@ -44,7 +44,6 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
         
         NotificationCenter.default.addObserver(self, selector: #selector(FoodViewController.fetchData(note:)),
                                                name: NSNotification.Name(rawValue: CoreDataManager.foodDataLoadedNotificationKey), object: nil)
-        self.navigationItem.title = "Foods"
     }
     
     override func viewWillAppear(_ animated: Bool) {

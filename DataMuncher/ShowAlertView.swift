@@ -14,8 +14,7 @@ extension UIViewController {
     func showError(error: NSError) {
         
         let alertController = UIAlertController(title: NSLocalizedString("Error", comment: ""), message: "Error: \(error), info: \(error.userInfo)", preferredStyle: UIAlertControllerStyle.alert)
-        let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.default, handler: { (alert) in
-            alertController.dismiss(animated: true, completion: {})
+        let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.cancel, handler: { (alert) in
         })
         alertController.addAction(okAction)
         
