@@ -7,3 +7,12 @@
 */
 
 "Error" = "Error";
+"Calories" = "Calories";
+"Fat" = "Fat";
+"Protein" = "Protein";
+"Carbohydrates" = "Carbohydrates";
+"Fiber" = "Fiber";
+"Cholesterol" = "Cholesterol";
+"Sodium" = "Sodium";
+"Postassium" = "Potassium";
+
