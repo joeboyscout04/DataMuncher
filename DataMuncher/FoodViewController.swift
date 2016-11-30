@@ -49,12 +49,18 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //check to see if the data's loaded already, we could either start the fetch from a notification or from appearance.
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        if let stack = appDelegate.dataStack{
-            if(stack.foodDataLoaded){
-                fetchDataAndShowError(displayError: true)
+        if(foods.count <= 0) {
+            //check to see if the data's loaded already, we could either start the fetch from a notification or from appearance.
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            if let stack = appDelegate.dataStack{
+                if(stack.foodDataLoaded){
+                    fetchDataAndShowError(displayError: true)
+                }
             }
+        }
+        else {
+            //the food data was already loaded from somewhere else...
+            spinner.stopAnimating()
         }
     }
     
@@ -134,7 +140,9 @@ class FoodViewController: UIViewController, UITableViewDataSource,UITableViewDel
     
     func fetchData(note: Notification) {
         
-        fetchDataAndShowError(displayError: true)
+        if(foods.count <= 0){
+            fetchDataAndShowError(displayError: true)
+        }
         
     }
 }

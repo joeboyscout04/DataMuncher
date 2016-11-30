@@ -73,6 +73,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="titleLabel" destination="eKb-VG-7yo" id="zoE-t7-Iag"/>
+                                            <segue destination="rf5-Vj-fme" kind="show" identifier="CategoryFoodSegue" id="mAE-my-b8S"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -448,4 +449,7 @@
         <image name="exercise_tab_icon" width="28" height="25"/>
         <image name="foods_tab_icon" width="28" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="mAE-my-b8S"/>
+    </inferredMetricsTieBreakers>
 </document>

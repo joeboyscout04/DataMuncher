@@ -68,6 +68,34 @@ class CategoriesViewController: UIViewController, UITableViewDataSource,UITableV
         NotificationCenter.default.removeObserver(self)
     }
     
+    //MARK: Segues
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if(segue.identifier! == "CategoryFoodSegue") {
+            
+            let destination = segue.destination as! FoodViewController
+            let indexpath = tableView.indexPathForSelectedRow!
+            let selectedCategory = categories[indexpath.row]
+            
+            //data weirdness...if servingscategory is 0, then it's a letter
+            if(selectedCategory.servingsCategory == 0){
+                //get the foods for the selected item and assign them
+                destination.foods = foodsForLetter(category: selectedCategory)
+            }
+            else {
+            
+                //get the foods for the selected item and assign them
+                destination.foods = foodsForCategory(category: selectedCategory)
+            }
+            
+        }
+        else {
+            NSLog("Unknown Segue \(segue.identifier)")
+        }
+    }
+
+    
     //MARK: - UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -119,5 +147,49 @@ class CategoriesViewController: UIViewController, UITableViewDataSource,UITableV
         
        fetchCategoriesDataAndShowError(displayError: true)
         
+    }
+    
+    func foodsForCategory(category:FoodCategoryItem) -> [FoodItem] {
+        
+        var foundFoods:[FoodItem] = []
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FoodItem")
+        
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let filter = NSPredicate(format: "categoryId == %@", category.oid)
+        fetchRequest.predicate = filter
+        
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            foundFoods = results as! [FoodItem]
+        }
+        catch let error as NSError {
+            showError(error: error)
+        }
+        
+        return foundFoods
+    }
+    
+    func foodsForLetter(category:FoodCategoryItem) -> [FoodItem] {
+        
+        var foundFoods:[FoodItem] = []
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FoodItem")
+        
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let filter = NSPredicate(format: "title BEGINSWITH[c] %@", category.categoryName)
+        fetchRequest.predicate = filter
+        
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            foundFoods = results as! [FoodItem]
+        }
+        catch let error as NSError {
+            showError(error: error)
+        }
+        
+        return foundFoods
     }
 }
